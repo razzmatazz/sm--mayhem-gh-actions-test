@@ -1,0 +1,6 @@
+image: forallsecure/c-base-executable:latest   # fields will be
+project: mayhem-examples                       # overridden at
+target: c-base-executable                      # CI run creation time
+duration: 90
+cmds:
+  - cmd: /a.out
