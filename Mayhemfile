@@ -5,4 +5,4 @@ duration: 90
 cmds:
   - cmd: /a.out
 testsuite:
-  - "hello"
+  - file://testsuite
