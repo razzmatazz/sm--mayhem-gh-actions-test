@@ -4,3 +4,5 @@ target: c-base-executable                      # CI run creation time
 duration: 90
 cmds:
   - cmd: /a.out
+testsuite:
+  - "hello"
