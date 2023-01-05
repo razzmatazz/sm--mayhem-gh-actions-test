@@ -65,7 +65,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Start analysis for ${{ matrix.mayhemfile }}
-        uses: razzmatazz/mcode-action@3ecdb587d87619c2759776a76d066793eee6301f
+        uses: razzmatazz/mcode-action@541f443c8abe52d55732f857e1810e722c641c7d
         with:
           mayhem-url: https://mayhem.forallsecure.com
           mayhem-token: ${{ secrets.MAYHEM_TOKEN }}
