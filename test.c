@@ -6,11 +6,11 @@ void fn() {
 
 int main(int argc, char** argv)
 {
-    void (*pfn0)(void);
+    volatile void (*pfn0)(void);
     char buffer[10];
-    void (*pfn1)(void);
+    volatile void (*pfn1)(void);
     int buffer_i = 0;
-    void (*pfn2)(void);
+    volatile void (*pfn2)(void);
 
     pfn0 = fn;
     pfn1 = fn;
