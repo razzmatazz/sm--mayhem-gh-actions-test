@@ -28,12 +28,7 @@ jobs:
 
       - run: test "bugfix (_._.X)" = "${{ inputs.part }}"
 
-      - run: cat deploy/mchart/Chart.yaml
-
-      - run: |
-          echo "BRANCH_NAME=${BRANCH_NAME}"
-
-      - if: false
+      - name: "Validate this is on a release-* branch"
         run: |
           [[ ${BRANCH_NAME} == release-* ]]
 
@@ -63,12 +58,6 @@ jobs:
       - run: |
           yq -i ".appVersion = \"${NEW_CHART_APP_VERSION}\"" deploy/mchart/Chart.yaml
           yq -i ".version = \"${NEW_CHART_APP_VERSION}\"" deploy/mchart/Chart.yaml
-
-      - run: cat deploy/mchart/Chart.yaml
-
-      - run: |
-          yq .appVersion deploy/mchart/Chart.yaml
-          yq .version deploy/mchart/Chart.yaml
 
       - run: |
           git config --global user.name 'fas-devbot'
