@@ -32,7 +32,7 @@ jobs:
           echo "CHART_APP_VERSION=${CHART_APP_VERSION}" >> "$GITHUB_ENV"
           echo "CHART_APP_VERSION=${CHART_APP_VERSION}"
 
-          CHART_VERSION$(yq .version deploy/mchart/Chart.yaml)
+          CHART_VERSION=$(yq .version deploy/mchart/Chart.yaml)
           echo "CHART_VERSION=${CHART_VERSION}" >> "$GITHUB_ENV"
           echo "CHART_VERSION=${CHART_VERSION}"
 
