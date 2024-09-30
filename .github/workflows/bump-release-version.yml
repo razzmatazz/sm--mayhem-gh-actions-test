@@ -8,8 +8,6 @@ on:
         required: true
         options:
           - "-"
-          - "major (X._._)"
-          - "minor (_.X._)"
           - "bugfix (_._.X)"
       dry_run:
         type: boolean
@@ -82,9 +80,9 @@ jobs:
 
       - run: git tag
 
-      - run: git tag "-begin-${NEW_CHART_VERSION}"
+      - run: git tag "XXX-${NEW_CHART_VERSION}"
 
       - if: ${{ ! inputs.dry_run }}
         run: |
           git push origin main
-          git push origin "-begin-${NEW_CHART_VERSION}"
+          git push origin "XXX-${NEW_CHART_VERSION}"
