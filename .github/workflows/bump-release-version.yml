@@ -1,0 +1,24 @@
+name: Bump Release Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      number:
+        type: choice
+        required: true
+        values:
+          - "-"
+          - "major (X._._)"
+          - "minor (_.X._)"
+          - "bugfix (_._.X)"
+
+jobs:
+  bump-release-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        fetch-depth: 0
+
+      - run: cat deploy/mchart/Chart.yaml
+
+      - run: git tags
