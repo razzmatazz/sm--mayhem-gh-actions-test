@@ -15,6 +15,9 @@ on:
         type: boolean
         default: false
 
+permissions:
+  contents: write
+
 jobs:
   bump-release-version:
     runs-on: ubuntu-latest
@@ -31,6 +34,10 @@ jobs:
 
       - run: |
           echo "BRANCH_NAME=${BRANCH_NAME}"
+
+      - if: false
+        run: |
+          [[ ${BRANCH_NAME} == release-* ]]
 
       - run: |
           CHART_APP_VERSION=$(yq .appVersion deploy/mchart/Chart.yaml)
@@ -58,12 +65,16 @@ jobs:
           yq .appVersion deploy/mchart/Chart.yaml
           yq .version deploy/mchart/Chart.yaml
 
+      - run: |
+          git config --global user.name 'fas-devbot'
+          git config --global user.email 'devbot@forallsecure.com'
+
       - run: git commit -m "Bump version to ${NEW_CHART_APP_VERSION}"
 
       - run: git tag
 
       - run: git tag "-begin-${NEW_CHART_VERSION}"
 
-      - run: git push origin "-begin-${NEW_CHART_VERSION}"
-
-      - run: git push origin main
+      - if: ${{ ! inputs.dry_run }}
+        run: git push origin main
+        run: git push origin "-begin-${NEW_CHART_VERSION}"
