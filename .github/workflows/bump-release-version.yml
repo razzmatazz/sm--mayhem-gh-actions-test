@@ -25,4 +25,18 @@ jobs:
 
       - run: cat deploy/mchart/Chart.yaml
 
+      - run: |
+          yq .appVersion deploy/mchart/Chart.yaml
+          yq .version deploy/mchart/Chart.yaml
+
+      - run: |
+          yq -i '.appVersion = "2.11.1"' deploy/mchart/Chart.yaml
+          yq -i '.version= "2.11.1"' deploy/mchart/Chart.yaml
+
+      - run: cat deploy/mchart/Chart.yaml
+
+      - run: |
+          yq .appVersion deploy/mchart/Chart.yaml
+          yq .version deploy/mchart/Chart.yaml
+
       - run: git tag
