@@ -76,7 +76,9 @@ jobs:
           git config --global user.name 'fas-devbot'
           git config --global user.email 'devbot@forallsecure.com'
 
-      - run: git commit -m "Bump version to ${NEW_CHART_APP_VERSION}"
+      - run: |
+          git add deploy/mchart/Chart.yaml
+          git commit -m "Bump version to ${NEW_CHART_APP_VERSION}."
 
       - run: git tag
 
