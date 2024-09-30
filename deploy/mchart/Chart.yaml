@@ -1,63 +1,60 @@
 apiVersion: v2
-appVersion: 2.11.0
+appVersion: 2.11.1
 dependencies:
-- name: rabbitmq
-  version: 12.15.0
-  repository: https://charts.bitnami.com/bitnami
-- condition: prometheus.server.enabled, global.prometheus.server.enabled
-  name: prometheus
-  version: 25.15.0
-  # to bump version and fetch new chart:
-  # 1. uncomment line below before `helm dependency update`
-  # repository: https://prometheus-community.github.io/helm-charts
-  # 2. `cd mchart/` # Chart.yaml and charts/ should be in Current Working Dir.
-  # 3. `helm dependency update`
-  # 4. `cd charts/`
-  # 5. `rm -r prometheus/`
-  # 6. `tar xzf prometheus-$version.tgz`
-  # 7. `rm prometheus-$version.tgz`
-  # 8. `git add prometheus/`
-  # 9. Check to see if mchart/values.yaml overrides docker-pullable://repo:tag.
-- name: docker-registry
-  version: 1.9.3
-- condition: metrics-server.enabled
-  name: metrics-server
-  # repository: https://kubernetes-sigs.github.io/metrics-server
-  version: 3.12.0
-- alias: internal-docker-registry
-  name: docker-registry
-  version: 1.9.3
-- condition: dockerhub-cache.enabled
-  alias: dockerhub-cache
-  name: docker-registry
-  version: 1.9.3
-- condition: minio.enabled
-  name: minio
-  version: 14.1.7
-  repository: https://charts.bitnami.com/bitnami
-- condition: postgresql.enabled
-  name: postgresql
-  version: 14.3.1
-  repository: https://charts.bitnami.com/bitnami
-- condition: prometheus-adapter.enabled
-  name: prometheus-adapter
-  # repository: https://prometheus-community.github.io/helm-charts
-  version: 4.9.0
-
-# bitnami's keycloak chart from https://github.com/bitnami/charts/tree/3ac844f786aae0d645e114375ce47949ec9a6905/bitnami/keycloak
-- condition: keycloak.enabled
-  name: keycloak
-  version: 17.0.1
-
-# bitnami's "common" template chart which the above keycloak chart requires
-# from https://github.com/bitnami/charts/tree/3ac844f786aae0d645e114375ce47949ec9a6905/bitnami/common
-- condition: keycloak.enabled
-  name: common
-  version: 2.13.2
-
+  - name: rabbitmq
+    version: 12.15.0
+    repository: https://charts.bitnami.com/bitnami
+  - condition: prometheus.server.enabled, global.prometheus.server.enabled
+    name: prometheus
+    version: 25.15.0
+    # to bump version and fetch new chart:
+    # 1. uncomment line below before `helm dependency update`
+    # repository: https://prometheus-community.github.io/helm-charts
+    # 2. `cd mchart/` # Chart.yaml and charts/ should be in Current Working Dir.
+    # 3. `helm dependency update`
+    # 4. `cd charts/`
+    # 5. `rm -r prometheus/`
+    # 6. `tar xzf prometheus-$version.tgz`
+    # 7. `rm prometheus-$version.tgz`
+    # 8. `git add prometheus/`
+    # 9. Check to see if mchart/values.yaml overrides docker-pullable://repo:tag.
+  - name: docker-registry
+    version: 1.9.3
+  - condition: metrics-server.enabled
+    name: metrics-server
+    # repository: https://kubernetes-sigs.github.io/metrics-server
+    version: 3.12.0
+  - alias: internal-docker-registry
+    name: docker-registry
+    version: 1.9.3
+  - condition: dockerhub-cache.enabled
+    alias: dockerhub-cache
+    name: docker-registry
+    version: 1.9.3
+  - condition: minio.enabled
+    name: minio
+    version: 14.1.7
+    repository: https://charts.bitnami.com/bitnami
+  - condition: postgresql.enabled
+    name: postgresql
+    version: 14.3.1
+    repository: https://charts.bitnami.com/bitnami
+  - condition: prometheus-adapter.enabled
+    name: prometheus-adapter
+    # repository: https://prometheus-community.github.io/helm-charts
+    version: 4.9.0
+  # bitnami's keycloak chart from https://github.com/bitnami/charts/tree/3ac844f786aae0d645e114375ce47949ec9a6905/bitnami/keycloak
+  - condition: keycloak.enabled
+    name: keycloak
+    version: 17.0.1
+  # bitnami's "common" template chart which the above keycloak chart requires
+  # from https://github.com/bitnami/charts/tree/3ac844f786aae0d645e114375ce47949ec9a6905/bitnami/common
+  - condition: keycloak.enabled
+    name: common
+    version: 2.13.2
 description: Mayhem Platform for Application Security
 name: mchart
-version: 2.11.0
+version: 2.11.1
 kubeVersion: ">= 1.23.0-0"
 icon: https://storage.googleapis.com/forallsecure-website.appspot.com/fas-logo-invert.svg
 # Jenkins pipelines (still) runs 1.15.12.
