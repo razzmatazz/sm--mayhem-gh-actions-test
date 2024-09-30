@@ -18,6 +18,8 @@ on:
 jobs:
   bump-release-version:
     runs-on: ubuntu-latest
+    env:
+      BRANCH_NAME: "${{ github.ref_name }}"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,6 +28,9 @@ jobs:
       - run: test "bugfix (_._.X)" = "${{ inputs.part }}"
 
       - run: cat deploy/mchart/Chart.yaml
+
+      - run: |
+          echo "BRANCH_NAME=${BRANCH_NAME}"
 
       - run: |
           CHART_APP_VERSION=$(yq .appVersion deploy/mchart/Chart.yaml)
@@ -44,8 +49,8 @@ jobs:
           NEW_CHART_VERSION="2.11.1"
 
       - run: |
-          yq -i .appVersion = '${NEW_CHART_APP_VERSION}'" deploy/mchart/Chart.yaml
-          yq -i ".version = '${NEW_CHART_APP_VERSION}'" deploy/mchart/Chart.yaml
+          yq -i ".appVersion = \"${NEW_CHART_APP_VERSION}\"" deploy/mchart/Chart.yaml
+          yq -i ".version = \"${NEW_CHART_APP_VERSION}\"" deploy/mchart/Chart.yaml
 
       - run: cat deploy/mchart/Chart.yaml
 
