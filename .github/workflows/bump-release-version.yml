@@ -6,7 +6,7 @@ on:
       number:
         type: choice
         required: true
-        values:
+        options:
           - "-"
           - "major (X._._)"
           - "minor (_.X._)"
