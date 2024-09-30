@@ -52,8 +52,15 @@ jobs:
           test "${CHART_APP_VERSION}" = "${CHART_VERSION}"
 
       - run: |
-          NEW_CHART_APP_VERSION="2.11.1"
-          NEW_CHART_VERSION="2.11.1"
+          NEW_VERSION=$(echo "${CHART_APP_VERSION}" | awk -F. -v OFS=. '{$3 = $3 + 1; print $1, $2, $3}')
+
+          NEW_CHART_APP_VERSION="${NEW_VERSION}"
+          echo NEW_CHART_APP_VERSION="${NEW_CHART_APP_VERSION}" >> "${GITHUB_ENV}"
+          echo NEW_CHART_APP_VERSION="${NEW_CHART_APP_VERSION}"
+
+          NEW_CHART_VERSION="${NEW_VERSION}"
+          echo NEW_CHART_VERSION="${NEW_CHART_VERSION}" >> "${GITHUB_ENV}"
+          echo NEW_CHART_VERSION="${NEW_CHART_VERSION}"
 
       - run: |
           yq -i ".appVersion = \"${NEW_CHART_APP_VERSION}\"" deploy/mchart/Chart.yaml
