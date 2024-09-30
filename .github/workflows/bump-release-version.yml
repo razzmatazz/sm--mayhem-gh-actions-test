@@ -76,5 +76,6 @@ jobs:
       - run: git tag "-begin-${NEW_CHART_VERSION}"
 
       - if: ${{ ! inputs.dry_run }}
-        run: git push origin main
-        run: git push origin "-begin-${NEW_CHART_VERSION}"
+        run: |
+          git push origin main
+          git push origin "-begin-${NEW_CHART_VERSION}"
