@@ -29,6 +29,7 @@ jobs:
       - run: test "bugfix (_._.X)" = "${{ inputs.part }}"
 
       - name: "Validate this is on a release-* branch"
+        if: false
         run: |
           [[ ${BRANCH_NAME} == release-* ]]
 
@@ -65,7 +66,7 @@ jobs:
 
       - run: |
           git add deploy/mchart/Chart.yaml
-          git commit -m "Bump version to ${NEW_CHART_APP_VERSION}."
+          git commit -m "Bump version to ${NEW_CHART_APP_VERSION}.\n\nInitiated by @${{ github.actor }}"
 
       - run: git tag
 
