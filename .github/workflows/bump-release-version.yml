@@ -37,8 +37,15 @@ jobs:
           echo "CHART_VERSION=${CHART_VERSION}"
 
       - run: |
-          yq -i '.appVersion = "2.11.1"' deploy/mchart/Chart.yaml
-          yq -i '.version= "2.11.1"' deploy/mchart/Chart.yaml
+          test "${CHART_APP_VERSION}" = "${CHART_VERSION}"
+
+      - run: |
+          NEW_CHART_APP_VERSION="2.11.1"
+          NEW_CHART_VERSION="2.11.1"
+
+      - run: |
+          yq -i .appVersion = '${NEW_CHART_APP_VERSION}'" deploy/mchart/Chart.yaml
+          yq -i ".version = '${NEW_CHART_APP_VERSION}'" deploy/mchart/Chart.yaml
 
       - run: cat deploy/mchart/Chart.yaml
 
@@ -46,4 +53,12 @@ jobs:
           yq .appVersion deploy/mchart/Chart.yaml
           yq .version deploy/mchart/Chart.yaml
 
+      - run: git commit -m "Bump version to ${NEW_CHART_APP_VERSION}"
+
       - run: git tag
+
+      - run: git tag "-begin-${NEW_CHART_VERSION}"
+
+      - run: git push origin "-begin-${NEW_CHART_VERSION}"
+
+      - run: git push origin main
